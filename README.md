@@ -2,7 +2,7 @@
 
 [![Tests and offline demo](https://github.com/Mingju-Zhang-CBS/financial-ml-validation/actions/workflows/checks.yml/badge.svg)](https://github.com/Mingju-Zhang-CBS/financial-ml-validation/actions/workflows/checks.yml)
 
-[Research overview](https://github.com/Mingju-Zhang-CBS/Quant) · [Mingju Zhang](https://github.com/Mingju-Zhang-CBS)
+[Research Studio](https://github.com/Mingju-Zhang-CBS) · [Research directory](https://github.com/Mingju-Zhang-CBS/Quant)
 
 # Financial ML Validation
 
