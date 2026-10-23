@@ -1,0 +1,68 @@
+{
+  "protocol": "known synthetic chronology; 20-date purge",
+  "selected": "logistic/identity",
+  "freeze": {
+    "selected": "logistic/identity",
+    "selection_rule": "maximum row-weighted development accuracy; ties by candidate name",
+    "threshold": 0.5,
+    "configuration_count": 9,
+    "confirmation_role": "one evaluation; never used for model choice",
+    "selection_sha256": "d0802273ba7ac80b3c209c0b780206eccd146eea811925ba4eb6b3cac8bdff01"
+  },
+  "development_rows": 3216,
+  "confirmation_rows": 864,
+  "development_dates": 268,
+  "confirmation_dates": 72,
+  "confirmation": {
+    "accuracy": 0.5266203703703703,
+    "balanced_accuracy": 0.5276062769309924,
+    "log_loss": 0.6992683956062801
+  },
+  "baseline": {
+    "accuracy": 0.4930555555555556,
+    "balanced_accuracy": 0.5,
+    "log_loss": 0.6935025095854468
+  },
+  "paired_bootstrap": {
+    "accuracy_difference": 0.03356481481481482,
+    "ci_low": -0.020833333333333332,
+    "ci_high": 0.09027777777777778,
+    "repetitions": 2000,
+    "sampling_unit": "date cluster"
+  },
+  "confirmation_groups": [
+    {
+      "group": "G0",
+      "rows": 288,
+      "accuracy": 0.5381944444444444,
+      "balanced_accuracy": 0.5384429866872468,
+      "log_loss": 0.696394935357773
+    },
+    {
+      "group": "G1",
+      "rows": 288,
+      "accuracy": 0.5,
+      "balanced_accuracy": 0.5116550116550116,
+      "log_loss": 0.7099542358350875
+    },
+    {
+      "group": "G2",
+      "rows": 288,
+      "accuracy": 0.5416666666666666,
+      "balanced_accuracy": 0.5386996904024768,
+      "log_loss": 0.6914560156259798
+    }
+  ],
+  "final_fit_seconds": 0.03274520000559278,
+  "development_baseline": {
+    "accuracy": 0.5095356550580431,
+    "balanced_accuracy": 0.5,
+    "log_loss": 0.6932753120829387
+  },
+  "data_kind": "synthetic",
+  "measurement": {
+    "seconds": 4.768702899978962,
+    "sampled_peak_rss_mb": 215.8359375,
+    "rss_increase_mb": 31.7265625
+  }
+}

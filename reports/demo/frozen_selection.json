@@ -1,0 +1,8 @@
+{
+  "selected": "logistic/identity",
+  "selection_rule": "maximum row-weighted development accuracy; ties by candidate name",
+  "threshold": 0.5,
+  "configuration_count": 9,
+  "confirmation_role": "one evaluation; never used for model choice",
+  "selection_sha256": "d0802273ba7ac80b3c209c0b780206eccd146eea811925ba4eb6b3cac8bdff01"
+}
