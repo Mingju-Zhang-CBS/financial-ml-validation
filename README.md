@@ -1,115 +1,91 @@
-![Financial ML Validation](assets/header.svg)
-
-[![Tests and offline demo](https://github.com/Mingju-Zhang-CBS/financial-ml-validation/actions/workflows/checks.yml/badge.svg)](https://github.com/Mingju-Zhang-CBS/financial-ml-validation/actions/workflows/checks.yml)
-
-[Research Studio](https://github.com/Mingju-Zhang-CBS) · [Research directory](https://github.com/Mingju-Zhang-CBS/Quant)
+![Financial ML Validation — Probability forecasts that earn their confidence](assets/header.svg)
 
 # Financial ML Validation
 
-**Research question:** How much confidence should we place in a financial classifier when observations share dates, feature histories overlap, and several model variants compete for selection?
+**Real public Treasury yields · time-aware financial ML · probability quality**
 
-This project implements the complete route from keyed panel inputs to a documented confirmation result. It is motivated by the [QRT asset-allocation challenge](https://challengedata.ens.fr/challenges/167), with a fully reproducible synthetic example and a separate input adapter for independently obtained challenge files.
+Can yield-curve features improve forecasts of the next twenty observed-session direction in the 10-year Treasury reference yield? I compare logistic regression, LightGBM and CatBoost on **9,005 official H.15 observations**, with a delayed forecast origin, label-availability purging and a development freeze. The result connects rates research with practical data-science judgment: a more complex classifier must earn its place against a simple probability baseline.
 
-**Python 3.12 · scikit-learn · LightGBM · CatBoost · 11 local tests passed · MIT**
+[Results](reports/real/REPORT.md) · [Walkthrough](docs/WALKTHROUGH.md) · [Methods](docs/METHODS.md) · [Data license](DATA_LICENSE.md) · [Validation](docs/VALIDATION.md) · [Research directory](https://github.com/Mingju-Zhang-CBS/Quant)
 
-## Read the result first
+## Start with the finding
 
-The public experiment contains **4,320 synthetic observations across 360 dates and 12 allocations**. Known generating order is used for forward validation; the last 72 dates form confirmation, with a 20-date gap before them.
+The **training-climatology baseline already leads development**. Among the nine classifiers, `catboost/dynamics` has the lowest development log loss; it is frozen as the classifier comparator, not promoted over the baseline.
 
-| Confirmation measure | Selected model | Training-fitted majority baseline |
-| --- | ---: | ---: |
-| Accuracy | 52.66% | 49.31% |
-| Balanced accuracy | 52.76% | 50.00% |
-| Log loss; lower is better | 0.6993 | 0.6935 |
+On **1,479 historical confirmation decisions** from January 2020 through December 2025, that CatBoost configuration has log loss **0.71866**, versus **0.70915** for the baseline. Its mean paired log-loss gain is **−0.00951** (positive would favor the classifier), with a 63-session block 95% interval **[−0.01688, −0.00297]**. The selected classifier is worse on this probability loss in the recorded confirmation; that is retained.
 
-The development-selected model is **logistic regression with allocation identity**. Its accuracy advantage is **3.36 percentage points**, with a paired date-bootstrap 95% interval of **[-2.08, 9.03] percentage points**.
+Other evidence is less decisive. CatBoost's accuracy difference is **−0.88 percentage points**, with an interval spanning zero. The four-session availability stress also has an interval spanning zero. Logistic regression's confirmation log-loss point estimate is better, but its interval includes zero with 63-session blocks and excludes zero with 126-session blocks. **I do not switch the selected classifier after seeing confirmation.** Neither a favorable slice nor a different block length becomes a new headline winner.
 
-**Research interpretation:** the accuracy point estimate improves, but the interval includes zero and log loss is worse. This run supports a working validation pipeline and a qualified model comparison. It does not establish a dependable forecasting edge. A more complex estimator did not automatically earn selection.
+![Frozen confirmation comparisons](reports/real/confirmation_comparison.png)
 
-![Nine model and feature comparisons](reports/demo/model_comparison.png)
+|Frozen configuration|Accuracy|Balanced accuracy|Log loss ↓|Brier ↓|
+|---|---:|---:|---:|---:|
+|Logistic / curve|52.54%|52.46%|0.68488|0.24589|
+|LightGBM / dynamics|46.72%|49.86%|0.73373|0.26931|
+|CatBoost / dynamics — selected classifier|45.03%|48.91%|0.71866|0.26257|
+|Training climatology — selected baseline|45.91%|50.00%|0.70915|0.25796|
+|Past-direction-conditioned baseline|45.91%|50.00%|0.70887|0.25782|
 
-The chart summarizes development results; the table above summarizes the separately evaluated confirmation stage. They serve different purposes.
+The baseline predicts the training period's class tendency, rather than learning the confirmation majority. Class balance changes: a classifier's accuracy is not meaningful without that context. All results are historical reference-yield forecasts, not bond returns, executable quotes or a trading record.
 
-## What this project demonstrates
+## What the implementation demonstrates
 
-| Skill | Concrete evidence |
-| --- | --- |
-| Financial data engineering | Unique keyed X/y joins, exact key-set checks, explicit target aliases and a feature whitelist. |
-| Statistical validation | Whole-date isolation, forward folds when chronology is known, and explicit limits when it is unknown. |
-| Applied machine learning | Comparable pipelines for logistic regression, LightGBM and CatBoost. |
-| Feature research | Three fixed ablations distinguish raw history, summary statistics and allocation identity. |
-| Uncertainty and judgment | Paired date-cluster bootstrap, group diagnostics and retention of an uncertain result. |
-| Python engineering | Behavioral tests, portable packaging, source-bound manifests and measured resource use. |
+|Skill|Inspectable evidence|
+|---|---|
+|Financial data judgment|Five government yield tenors, public-domain reuse policy, unit checks, source hashes and a current-vintage limitation|
+|Leakage-aware research|Separate observation, assumed publication, decision, label start/end and label-availability clocks|
+|Model comparison|Nine fixed model/feature configurations, two train-fitted baselines and identical expanding folds|
+|Probability evaluation|Log loss, Brier score, accuracy, balanced accuracy, AUC and fixed-bin reliability|
+|Research judgment|Development baseline wins, frozen classifier underperforms, and favorable but block-sensitive alternatives remain qualified|
+|Engineering|33 automated tests, offline packaged data, keyed predictions, complete timing audits and source-bound artifacts|
 
-## The complete research workflow
+I independently implemented the yield schema, trailing feature construction, timed label contract, purged experiment, reporting and validation. Public methods and Python libraries retain attribution. Development and documentation were AI-assisted; original course, employer and challenge files are excluded.
 
-![Financial ML workflow](assets/workflow.svg)
+## Read the clock before fitting a model
 
-1. **Define the task.** Predict whether the next-period allocation return is positive. Zero maps to class 0; this is classification rather than a trading-P&L model.
-2. **Establish alignment.** Match labels by `ROW_ID`, reject duplicates or incomplete key sets, and remove dates, row keys and labels from the feature space.
-3. **Choose a defensible split.** For synthetic data, use the known generator order, three expanding folds and a 20-date purge. For anonymous official dates, use reproducible whole-date groups and disclose unknown chronology.
-4. **Fit transformations locally.** Each training fold learns its own imputation, numeric scaling and category vocabulary. Unknown validation categories are handled without refitting.
-5. **Compare nine predeclared candidates.** Three estimators receive raw, summary or identity features on the same folds. Hyperparameters and threshold 0.50 remain fixed.
-6. **Freeze the selection.** Rank candidates on pooled development accuracy; break ties deterministically. Refit the selected configuration on development rows before evaluating confirmation.
-7. **Explain the evidence.** Compare the final candidate with a training-fitted baseline, resample entire dates for uncertainty, and inspect groups without retuning on their outcomes.
+![Feature, decision and label clocks](assets/workflow.svg)
 
-The synthetic split uses 268 final-fit development dates, 20 unused boundary dates and 72 confirmation dates. Development fold validation covers a subset of development rows; the model is then refitted on all development rows. See the [walkthrough](docs/WALKTHROUGH.md) for the split arithmetic and a worked keyed join.
+An observation on date **t** contributes only current and trailing values. A complete intervening observation session is reserved for publication. The modeled decision is at **09:00 New York time on t+2**, after assumed feature availability. The label begins with the later yield measurement on **that decision day**, then ends twenty observed sessions later. It does **not** start at the stale feature-date quote, which would include movement that happened before the decision.
 
-## Reproduce the study
+Training labels must be fully available before each validation decision. Development selection also excludes late-2019 labels that become known in confirmation: **21 boundary rows are removed**. Preprocessing fits training rows only. Dates, row IDs, target endpoints and future changes are excluded from the 25-feature combined table. No missing date or yield is forward-filled.
 
-```text
+The snapshot is the currently published historical vintage, retrieved in October 2026. Exact historical release timestamps and revision archives are unavailable. The conservative lag therefore supports an explicit timing contract, not a complete point-in-time guarantee. These are chronological historical checks; familiar market regimes cannot become genuinely unseen future evidence through a new split.
+
+## Reproduce everything offline
+
+Use **Python 3.12** and a fresh environment:
+
+```bash
 python -m venv .venv
-```
-
-Activate the environment with `.venv\Scripts\Activate.ps1` in Windows PowerShell, or `source .venv/bin/activate` on macOS/Linux. Then:
-
-```text
+# Activate .venv using the standard command for your shell.
 python -m pip install -r requirements.lock.txt
 python -m pip install --no-deps -e .
+python -m pip check
 python -m pytest
-python -m ml_validation --output local-runs/demo
+python -m ml_validation --real --output local-runs/real
+python examples/explain_treasury_clock.py
 ```
 
-Use Python 3.12 and a new or empty output directory. After dependencies are installed, the synthetic demonstration needs no network access. The checked-in run is in `reports/demo/`; new runs go to ignored `local-runs/`.
+After dependency installation, the real study needs **no network, service, key or GPU**. Choose a new empty output directory for every run. The [checked-in report](reports/real/REPORT.md) contains the complete experiment; its manifest binds code, data, protocol, environment and generated files. A standalone wheel is checked outside the source tree so the packaged data cannot be accidentally supplied by an editable checkout.
 
-### Use independently obtained challenge data
+## Fixed experiment, visible uncertainty
 
-```text
-python -m ml_validation --x private-data/X_train.csv --y private-data/y_train.csv --output local-runs/challenge
-```
+The source spans 1990–2025; eligible observations begin in 1991. Three expanding development windows cover 2008–2011, 2012–2015 and 2016–2019. Curve features are five yield levels, three slopes and curvature; dynamics are 1/5/20-session changes and trailing yield-change volatility. All hyperparameters, feature variants and threshold 0.50 are fixed. Pooled development log loss chooses one representative per model family, a classifier comparator and a baseline. Their choices are persisted before confirmation metrics.
 
-X requires `ROW_ID`, `TS`, `ALLOCATION`, `GROUP`, 20 return histories, 20 signed-volume histories and turnover. Y contains `ROW_ID` and exactly one `TARGET` or `target` column. Keep downloaded files and user-data runs outside the public release. Full field and missing-value rules are in [METHODS](docs/METHODS.md).
+Twenty-session labels overlap. Purging stops unavailable training outcomes from entering fitting or selection; it does not make confirmation rows independent. Paired moving-block intervals use both **63 and 126 sessions**, with 2,000 deterministic resamples. Yearly, as-of curve-inversion, fixed-bin reliability and every-twentieth-anchor diagnostics are retained without retuning. No confirmation recalibration, threshold optimization or early-stopping feedback is used.
 
-## Engineering map and verification
+![Paired uncertainty, including block-sensitive findings](reports/real/uncertainty.png)
 
-| Implementation | Responsibility |
-| --- | --- |
-| [`data.py`](ml_validation/data.py) | Input contracts, label alignment, whitelisted features and synthetic generation. |
-| [`research.py`](ml_validation/research.py) | Splits, fold-fitted models, selection, confirmation and bootstrap. |
-| [`__main__.py`](ml_validation/__main__.py) | Command-line run, aggregate artifacts, plots and research report. |
-| [`test_protocol.py`](tests/test_protocol.py) | Alignment, temporal boundaries, train-only transforms, estimator integration and invalid uncertainty inputs. |
+## Source and interpretation limits
 
-Tests include row permutation, unknown categories, target-name ambiguity, exact prediction-vector shapes, missing date groups and nonfinite probabilities. In particular, a length-one prediction vector is rejected rather than silently broadcast across every label.
+The [Federal Reserve Board H.15 service](https://www.federalreserve.gov/releases/h15/) publishes Treasury constant-maturity reference yields. Its [reuse policy](https://www.federalreserve.gov/disclaimer.htm) permits copying and distribution of public-domain information unless an exception is marked. The selected government yield series have no identified third-party restriction; attribution and exact reuse scope are documented in [DATA_LICENSE.md](DATA_LICENSE.md). No government logos or website assets are distributed.
 
-The run writes `model_comparison.csv`, `development_folds.csv`, `group_diagnostics.csv`, `frozen_selection.json`, `metrics.json`, `manifest.json` and `REPORT.md`. The manifest records input and source fingerprints, configuration and dependency versions. The badge above links to the live GitHub Actions run; the recorded local demo remains bound to the source fingerprints in its manifest.
+Yields are percentages per annum, not decimal returns or bond prices. Treasury changed its curve methodology in December 2021; the series preserves actual official measurements. Predicting a yield sign does not model duration, convexity, carry, coupons, financing, costs or executable trades. This study does not claim alpha, Sharpe, a QRT leaderboard score or universally superior models.
 
-## Assumptions and limits
+The [legacy synthetic study](reports/demo/REPORT.md) remains a separate alignment/validation demonstration. Its anonymous-challenge adapter cannot infer a real calendar or remove unknown overlapping histories; previously inspected labels remain exposed. Run it with `python -m ml_validation --output local-runs/synthetic`. Its old accuracy and date-bootstrap numbers are not transferred to the real study.
 
-- The checked-in results are synthetic. They are not an official QRT leaderboard score or a live trading record.
-- Anonymous date labels cannot establish a calendar. Whole-date grouping alone cannot remove unknown overlap or dependence across dates.
-- Previously inspected official labels remain exposed after a new split; a new folder is not fresh out-of-sample evidence.
-- Date bootstrap preserves within-date pairing, but does not account for arbitrary serial dependence or the entire historical research search.
-- Accuracy does not specify returns, position sizing, costs or execution. A separate trading model is required before an economic-performance claim.
+## Continue reading
 
-## Explore the evidence
+[Methods](docs/METHODS.md) · [Numerical walkthrough](docs/WALKTHROUGH.md) · [Validation record](docs/VALIDATION.md) · [Sources and contribution](docs/PROVENANCE.md) · [Interview guide](docs/INTERVIEW.md) · [QR / DS resume evidence](docs/RESUME.md)
 
-| Read | Purpose |
-| --- | --- |
-| [Worked walkthrough](docs/WALKTHROUGH.md) | Follow the research logic and a numerical example. |
-| [Methods and input contract](docs/METHODS.md) | Check assumptions, conventions and supported interfaces. |
-| [Executed research report](reports/demo/REPORT.md) | Inspect the recorded results and limitations. |
-| [Interview discussion](docs/INTERVIEW.md) | Practice explaining decisions and failure modes. |
-| [Resume evidence](docs/RESUME.md) | Trace draft claims to measured artifacts. |
-| [Provenance](docs/PROVENANCE.md) | Understand attribution, AI assistance and data rights. |
-
-New implementation and documentation were developed with AI assistance. The public task and estimator libraries retain their original attribution; no employer or classroom framework was copied into this distribution. [MIT license](LICENSE); external data rights are separate.
+For financial NLP, compare [Financial Text Validation](https://github.com/Mingju-Zhang-CBS/financial-text-validation). For allocation and funding, see [Systematic Strategy Lab](https://github.com/Mingju-Zhang-CBS/systematic-strategy-lab). Together they connect financial data, model validation and investment decisions without equating prediction accuracy with profitability.

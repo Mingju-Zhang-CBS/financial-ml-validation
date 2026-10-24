@@ -6,15 +6,15 @@ Protocol: known synthetic chronology; 20-date purge. Development: 268 dates / 32
 
 |Configuration|Development accuracy|Balanced accuracy|Fit seconds across folds|
 |---|---:|---:|---:|
-|logistic/identity|51.244%|51.161%|0.058|
-|catboost/identity|50.829%|50.647%|1.155|
-|lightgbm/summary|50.415%|50.306%|0.192|
-|lightgbm/identity|50.124%|50.017%|0.196|
-|lightgbm/raw|49.834%|49.726%|0.129|
+|logistic/identity|51.244%|51.161%|0.050|
+|catboost/identity|50.829%|50.647%|1.139|
+|lightgbm/summary|50.415%|50.306%|0.218|
+|lightgbm/identity|50.124%|50.017%|0.218|
+|lightgbm/raw|49.834%|49.726%|0.128|
 |logistic/summary|49.793%|49.720%|0.054|
-|catboost/raw|49.461%|49.260%|1.262|
-|catboost/summary|49.046%|48.863%|1.243|
-|logistic/raw|48.590%|48.512%|0.027|
+|catboost/raw|49.461%|49.260%|1.164|
+|catboost/summary|49.046%|48.863%|1.173|
+|logistic/raw|48.590%|48.512%|0.028|
 
 ![Model comparison](model_comparison.png)
 

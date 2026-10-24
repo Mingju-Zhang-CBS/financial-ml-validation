@@ -1,0 +1,17 @@
+{
+  "global_champion": "catboost/dynamics",
+  "family_representatives": {
+    "logistic": "logistic/curve",
+    "lightgbm": "lightgbm/dynamics",
+    "catboost": "catboost/dynamics"
+  },
+  "baseline": "training_climatology",
+  "selection_rule": "Minimum pooled expanding-development log loss, deterministic name tie-break. Freeze one feature variant per model family, global champion, and best of the two baselines before confirmation evaluation.",
+  "threshold": 0.5,
+  "overall_development_leader": "training_climatology",
+  "champion_scope": "Best of the nine classifiers only; baselines remain separately ranked. No classifier promotion is implied when a baseline has lower development loss.",
+  "development_label_fingerprint": "5ef9b68598633e7b065d86b5bc14e0d84b5e8ab333c3f35f29cb6b4cfd3d0852",
+  "protocol_version": "treasury-direction-v1",
+  "confirmation_policy": "Evaluate all three frozen family representatives; never choose a new champion from confirmation.",
+  "selection_sha256": "fd8c3fdcdea8095a6212891b514a936e4e5ece2ec0fff99a4afbf951f9dda469"
+}

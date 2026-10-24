@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "financial-ml-validation"
-version = "0.1.0"
+version = "0.2.0"
 description = "Independent, reproducible quantitative finance portfolio research"
 requires-python = ">=3.12,<3.13"
 license = {file = "LICENSE"}
@@ -24,6 +24,9 @@ test = ["pytest>=8,<10"]
 
 [tool.setuptools.packages.find]
 include = ["ml_validation*"]
+
+[tool.setuptools.package-data]
+ml_validation = ["datasets/*.csv", "datasets/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -1,0 +1,206 @@
+{
+  "data_kind": "public-real",
+  "data_rows": 9005,
+  "complete_samples": 8732,
+  "development_rows_with_known_labels": 7232,
+  "selection": {
+    "global_champion": "catboost/dynamics",
+    "family_representatives": {
+      "logistic": "logistic/curve",
+      "lightgbm": "lightgbm/dynamics",
+      "catboost": "catboost/dynamics"
+    },
+    "baseline": "training_climatology",
+    "selection_rule": "Minimum pooled expanding-development log loss, deterministic name tie-break. Freeze one feature variant per model family, global champion, and best of the two baselines before confirmation evaluation.",
+    "threshold": 0.5,
+    "overall_development_leader": "training_climatology",
+    "champion_scope": "Best of the nine classifiers only; baselines remain separately ranked. No classifier promotion is implied when a baseline has lower development loss.",
+    "development_label_fingerprint": "5ef9b68598633e7b065d86b5bc14e0d84b5e8ab333c3f35f29cb6b4cfd3d0852",
+    "protocol_version": "treasury-direction-v1",
+    "confirmation_policy": "Evaluate all three frozen family representatives; never choose a new champion from confirmation.",
+    "selection_sha256": "fd8c3fdcdea8095a6212891b514a936e4e5ece2ec0fff99a4afbf951f9dda469"
+  },
+  "confirmation": {
+    "logistic/curve": {
+      "accuracy": 0.5253549695740365,
+      "balanced_accuracy": 0.5246069587628865,
+      "log_loss": 0.6848765858517033,
+      "brier": 0.2458857767834178,
+      "roc_auc": 0.5689515832106038
+    },
+    "lightgbm/dynamics": {
+      "accuracy": 0.4672075726842461,
+      "balanced_accuracy": 0.4985898379970545,
+      "log_loss": 0.7337269437600681,
+      "brier": 0.2693050700289267,
+      "roc_auc": 0.4339340942562592
+    },
+    "catboost/dynamics": {
+      "accuracy": 0.45030425963488846,
+      "balanced_accuracy": 0.48909057437407955,
+      "log_loss": 0.7186570123713374,
+      "brier": 0.26256868461146987,
+      "roc_auc": 0.42904823269514
+    },
+    "training_climatology": {
+      "accuracy": 0.45909398242055444,
+      "balanced_accuracy": 0.5,
+      "log_loss": 0.7091463382430223,
+      "brier": 0.2579573262921812,
+      "roc_auc": 0.5
+    },
+    "training_fitted_direction_persistence": {
+      "accuracy": 0.45909398242055444,
+      "balanced_accuracy": 0.5,
+      "log_loss": 0.7088712263642005,
+      "brier": 0.2578215293479347,
+      "roc_auc": 0.5566365979381444
+    }
+  },
+  "paired_intervals": {
+    "logistic/curve": {
+      "63": {
+        "candidate": "logistic/curve",
+        "baseline": "training_climatology",
+        "observations": 1479,
+        "block_sessions": 63,
+        "replications": 2000,
+        "seed": 20261024,
+        "mean_log_loss_gain": 0.024269752391318955,
+        "gain_ci95_low": -0.0019989172561479837,
+        "gain_ci95_high": 0.05860287068044391,
+        "gain_interval_contains_zero": true,
+        "accuracy_difference": 0.06626098715348208,
+        "accuracy_ci95_low": -0.052062204192021636,
+        "accuracy_ci95_high": 0.2393847194050032
+      },
+      "126": {
+        "candidate": "logistic/curve",
+        "baseline": "training_climatology",
+        "observations": 1479,
+        "block_sessions": 126,
+        "replications": 2000,
+        "seed": 20261024,
+        "mean_log_loss_gain": 0.024269752391318955,
+        "gain_ci95_low": 0.0013103141988538086,
+        "gain_ci95_high": 0.06544747994472026,
+        "gain_interval_contains_zero": false,
+        "accuracy_difference": 0.06626098715348208,
+        "accuracy_ci95_low": -0.04531778228532792,
+        "accuracy_ci95_high": 0.27790736984448944
+      }
+    },
+    "lightgbm/dynamics": {
+      "63": {
+        "candidate": "lightgbm/dynamics",
+        "baseline": "training_climatology",
+        "observations": 1479,
+        "block_sessions": 63,
+        "replications": 2000,
+        "seed": 20261024,
+        "mean_log_loss_gain": -0.024580605517045807,
+        "gain_ci95_low": -0.03841947226429733,
+        "gain_ci95_high": -0.00851673013842845,
+        "gain_interval_contains_zero": false,
+        "accuracy_difference": 0.008113590263691683,
+        "accuracy_ci95_low": -0.03110209601081812,
+        "accuracy_ci95_high": 0.05070993914807302
+      },
+      "126": {
+        "candidate": "lightgbm/dynamics",
+        "baseline": "training_climatology",
+        "observations": 1479,
+        "block_sessions": 126,
+        "replications": 2000,
+        "seed": 20261024,
+        "mean_log_loss_gain": -0.024580605517045807,
+        "gain_ci95_low": -0.03768183960056899,
+        "gain_ci95_high": -0.008024907964046087,
+        "gain_interval_contains_zero": false,
+        "accuracy_difference": 0.008113590263691683,
+        "accuracy_ci95_low": -0.0196078431372549,
+        "accuracy_ci95_high": 0.051402974983096594
+      }
+    },
+    "catboost/dynamics": {
+      "63": {
+        "candidate": "catboost/dynamics",
+        "baseline": "training_climatology",
+        "observations": 1479,
+        "block_sessions": 63,
+        "replications": 2000,
+        "seed": 20261024,
+        "mean_log_loss_gain": -0.009510674128315194,
+        "gain_ci95_low": -0.016882511775062326,
+        "gain_ci95_high": -0.0029661828825770587,
+        "gain_interval_contains_zero": false,
+        "accuracy_difference": -0.00878972278566599,
+        "accuracy_ci95_low": -0.023664638269100743,
+        "accuracy_ci95_high": 0.0074374577417173765
+      },
+      "126": {
+        "candidate": "catboost/dynamics",
+        "baseline": "training_climatology",
+        "observations": 1479,
+        "block_sessions": 126,
+        "replications": 2000,
+        "seed": 20261024,
+        "mean_log_loss_gain": -0.009510674128315194,
+        "gain_ci95_low": -0.01691404243789269,
+        "gain_ci95_high": -0.0026918447831436494,
+        "gain_interval_contains_zero": false,
+        "accuracy_difference": -0.00878972278566599,
+        "accuracy_ci95_low": -0.02028397565922921,
+        "accuracy_ci95_high": 0.008113590263691683
+      }
+    }
+  },
+  "availability_stress": {
+    "decision_delay": 4,
+    "rows": 1479,
+    "scores": {
+      "catboost/dynamics": {
+        "accuracy": 0.46112237998647737,
+        "balanced_accuracy": 0.4992019513991164,
+        "log_loss": 0.7120368611939988,
+        "brier": 0.2593527456870181,
+        "roc_auc": 0.4760079160530192
+      },
+      "training_climatology": {
+        "accuracy": 0.45909398242055444,
+        "balanced_accuracy": 0.5,
+        "log_loss": 0.7090976660123429,
+        "brier": 0.25793330832219424,
+        "roc_auc": 0.5
+      },
+      "training_fitted_direction_persistence": {
+        "accuracy": 0.45909398242055444,
+        "balanced_accuracy": 0.5,
+        "log_loss": 0.7080652117440434,
+        "brier": 0.25742315476113126,
+        "roc_auc": 0.5545388438880707
+      }
+    },
+    "paired_interval_63": {
+      "candidate": "catboost/dynamics",
+      "baseline": "training_climatology",
+      "observations": 1479,
+      "block_sessions": 63,
+      "replications": 2000,
+      "seed": 20261024,
+      "mean_log_loss_gain": -0.0029391951816558886,
+      "gain_ci95_low": -0.01020247982682296,
+      "gain_ci95_high": 0.003796943062742543,
+      "gain_interval_contains_zero": true,
+      "accuracy_difference": 0.002028397565922921,
+      "accuracy_ci95_low": -0.014198782961460446,
+      "accuracy_ci95_high": 0.01894861392832986
+    },
+    "same_decision_dates_and_targets": true
+  },
+  "measurement": {
+    "seconds": 5.210710400016978,
+    "sampled_peak_rss_mb": 210.14453125,
+    "rss_increase_mb": 26.25390625
+  }
+}

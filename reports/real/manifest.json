@@ -1,0 +1,143 @@
+{
+  "generated_utc": "2026-10-24T02:14:48.342001+00:00",
+  "data_kind": "public-real",
+  "input_sha256": "8055251ab08a5224c6f6f807be79d5af2a8feac630fece10e3d886268abf814a",
+  "configuration": {
+    "version": "treasury-direction-v1",
+    "frozen_utc": "2026-10-24T02:06:27Z",
+    "freeze_scope": "Recorded before target construction and strategy/model performance calculation in this implementation; not a prospective registration and not proof that historical markets were unseen.",
+    "data_start": "1990-01-01",
+    "data_end": "2025-12-31",
+    "tenors": [
+      "y3m",
+      "y1",
+      "y2",
+      "y5",
+      "y10"
+    ],
+    "unit": "percent per annum; differences in percentage points, with 100 basis points per percentage point",
+    "observation_start": "1991-01-01",
+    "availability_complete_sessions": 1,
+    "decision_delay_sessions": 2,
+    "decision_clock": "09:00 America/New_York, after a full intervening publication session; exact historical release vintages unavailable",
+    "target": "1 if 10-year constant-maturity yield at decision-session+20 exceeds yield at decision-session, else 0. Target starts after the decision clock; both label endpoints are excluded from features.",
+    "target_horizon_sessions": 20,
+    "max_feature_lookback_sessions": 20,
+    "development_folds": [
+      [
+        "2008-01-01",
+        "2011-12-31"
+      ],
+      [
+        "2012-01-01",
+        "2015-12-31"
+      ],
+      [
+        "2016-01-01",
+        "2019-12-31"
+      ]
+    ],
+    "confirmation": [
+      "2020-01-01",
+      "2025-12-31"
+    ],
+    "purge_rule": "Training decision precedes validation start and training label availability (end observation plus full subsequent publication session) is strictly before the first validation decision; no approximate fixed-gap shortcut.",
+    "development_label_freeze": "Every development selection label must be available strictly before 2020-01-01 00:00 America/New_York; truncate late-2019 validation labels that complete during confirmation.",
+    "feature_variants": [
+      "curve",
+      "dynamics",
+      "combined"
+    ],
+    "curve_features": "Five yield levels; 10y-2y, 10y-3m and 5y-2y slopes; 2*5y-2y-10y curvature",
+    "dynamic_features": "One-, five- and twenty-session changes for each tenor; twenty-session standard deviation of one-session 10y yield changes",
+    "models": [
+      "logistic",
+      "lightgbm",
+      "catboost"
+    ],
+    "model_config": "Existing reproducible model factory: logistic C=1 max_iter=600; boosting 80 rounds, depth=4, learning_rate=.05; fixed seed42 and two boosting threads; no early stopping or confirmation feedback",
+    "preprocessing": "Per-training-fold median imputation and standardization; schema whitelist excludes date, keys, label endpoints, targets and future change",
+    "baselines": [
+      "training_climatology",
+      "training_fitted_direction_persistence"
+    ],
+    "baseline_definition": "Laplace-smoothed positive rate overall and conditional on past 20-session 10y change >0; fit only on eligible training labels",
+    "selection": "Minimum pooled expanding-development log loss, deterministic name tie-break. Freeze one feature variant per model family, global champion, and best of the two baselines before confirmation evaluation.",
+    "primary_statistic": "Mean paired per-decision log-loss gain, frozen baseline loss minus frozen global champion loss; positive favors the classifier",
+    "threshold": 0.5,
+    "uncertainty": {
+      "blocks_sessions": [
+        63,
+        126
+      ],
+      "replications": 2000,
+      "seed": 20261024,
+      "interval": "95% non-circular overlapping moving-block percentile; descriptive, conditional on frozen development selection"
+    },
+    "diagnostics": "Publish all nine development configurations, all three frozen family representatives plus both baselines on confirmation, Brier/accuracy/balanced accuracy/log loss/AUC, fixed five-bin reliability, annual and as-of curve-inversion slices; every twentieth confirmation anchor as a reduced-overlap diagnostic, not independent trials",
+    "availability_stress_delay_sessions": 4,
+    "stress_selection": "Keep base-protocol champion model and feature variant fixed; rebuild clocks and labels, purge and refit pre-confirmation only. Do not select a winner from the stress.",
+    "negative_results": "Keep unfavorable models, years, stress results and intervals spanning zero. No required accuracy, significance, Sharpe or economic return target.",
+    "limitations": [
+      "Current-vintage historical yields, not an archived point-in-time release panel",
+      "Constant-maturity yields are interpolated reference yields, not bond prices or executable quotes",
+      "Overlapping 20-session targets create dependence; purging prevents training-label leakage, not serial dependence in test outcomes",
+      "Known historical regimes cannot become genuinely unseen future evidence via a new split",
+      "No transaction costs, duration/convexity, carry or trading P&L is inferred from classification"
+    ]
+  },
+  "source_sha256": {
+    "__init__.py": "41362a5ea4931c546433d4c48290c5707bf02dbbea1c3aafa9f43d1225e47003",
+    "__main__.py": "31677a38514a78bd3e3a2a33339f30a9e0ab90821b39e0ec32cb1baafbc12bbc",
+    "data.py": "2ef8ab6cf6dcdd8cf1317a6619eee1f95e258a1a44f80daba480ee02f1430b74",
+    "research.py": "8d6575c7cdc7fc626001365bfae8d66b6d8de7e8c7e093b4277a5add5813221e",
+    "runtime.py": "f13a499971d7a1d51ea7409b0e02d50129167868fa4adfa39e236dae0b6a8db7",
+    "treasury_data.py": "a23da0894015fd6bdcf02b494026a40ed59867236e0808c98d88600ddbb3ad70",
+    "treasury_report.py": "777f0f27b0e02de54a2f41cdcc47efbc6269ebe61aaf6c7fd70bbe708f2fc094",
+    "treasury_research.py": "0000a2fb36119d611e7848de529ed2e2d21beeaaf82b1d4cf86761564f4ac4f4"
+  },
+  "environment": {
+    "python": "3.12.6",
+    "os": "Windows",
+    "machine": "AMD64",
+    "packages": {
+      "numpy": "2.1.2",
+      "pandas": "2.2.3",
+      "scipy": "1.14.1",
+      "scikit-learn": "1.5.2",
+      "lightgbm": "4.6.0",
+      "catboost": "1.2.8",
+      "matplotlib": "3.9.2",
+      "psutil": "6.0.0"
+    }
+  },
+  "measurement_note": "Wall time and process RSS sampled every 10ms; timing is machine-specific; brief peaks may be missed.",
+  "protocol_sha256": "60ab665ac274c1ffc1b979a32171867d343539eaba7f44f3591e8cbec304f028",
+  "source_record_sha256": "30b43ee44b087df495d15cab4f6f282cf9714052343f78893e41cd219f2cabcc",
+  "outputs_sha256": {
+    "audit.json": "7f2ebca26332abb61e6243383acf9e9b54610214c7d4eb40b64477ba390bbb6b",
+    "availability_stress_predictions.csv": "1f9fc97d759b641c05b236def0c2ba7ac79018442b92156525cb30a6d7b95f5d",
+    "calibration.csv": "5b6c1f404eb39e507444a122b2b196236dc455608d3ef479bd808be623003cff",
+    "calibration.png": "2d668c8e5011df9b60da6b52e7c6b25c6d8857b17135e22568d39019c8958fc0",
+    "confirmation_comparison.png": "8ae5c109577d3e214bb799fde2ed842c146ec46b736f568610bab243c9c5b7e1",
+    "confirmation_predictions.csv": "68b53751a3219cd91b30bc23059cd51f044b36b3d726351e21b0171bae4ae4ed",
+    "confirmation_scores.csv": "0932c43903f8104682c66bc46923f085c32925a4f108bbed88c0e0666b72f661",
+    "data_overview.png": "d0135db916aab796ab12362b61308473410e50664d014f8fa223cc82522324a6",
+    "development_champion_predictions.csv": "6d7a901940417b97b405e135ffabc94b0a734df4dc82cd0fc0537485919cc024",
+    "development_comparison.png": "73cb6f9f9d93af3e98103d644708ace0625b94001ccdd9db0f6a5cc97d22b96a",
+    "development_fold_scores.csv": "06c50dfcca9185c83ec682270b21f7154e29bd7fd18b2f04f086e226d002e814",
+    "development_ranking.csv": "ca8c626f984dbaddca1710f6debe605ac7c9f81fb7d51a97fd3de02edb051c83",
+    "every_twentieth.csv": "6fbdac01cdaef07936be7211e1a59a649d44abe3bb3cce909ab44bb6308cdd11",
+    "fold_audit.csv": "9748ff73e48be0100201817240ef89d2c78c586c1e67eef384e349e79ba376d7",
+    "frozen_selection.json": "defa2a6564c5e7292960a6e1d627d31d73d8cd9e983db014cdb461f66f3acacd",
+    "groups.csv": "03035555c166fd381376d62cbb972cfe4db61054919aab9c3c3e9499dc4500f4",
+    "metrics.json": "829ed44514190433e4c2bde0cd93166961e3acf69688ecb522190c2d2c6f8e31",
+    "protocol.json": "08941d84c12d4c96d1db16f1c878f5bec272f2f282cf1fb9732297f3121a94aa",
+    "REPORT.md": "18d8ed536abfaf0fefd78d69bbdf5e41acc2839b7accb3969ba08b96a00818f7",
+    "sample_clocks.csv": "87064aa6a7dccc3e609d3472d1935cd77e5423c4254dd78aff3a6717973112b5",
+    "source.json": "6137978d0c6dd32f15572eecab4b8738a0664c595ddc9f818bf4d99a33744b7d",
+    "uncertainty.png": "84b46d94f278c3c6bd4a8a5a6ff76d047d444ca471669c66ff616833262df906",
+    "yearly.csv": "d0b5782a9dc6c6d6e16584c67ba47ee60be67cfc598dadefad8c74e00506643b",
+    "yearly.png": "e2c4875b21a89312f63656cda6845c1c27b9abb120e07b67e2476fe3d60d0e79"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "data_kind": "public-real",
+  "provider": "Federal Reserve Board, H.15; underlying Treasury constant-maturity yields: U.S. Treasury",
+  "source_url": "https://www.federalreserve.gov/datadownload/Output.aspx?rel=H15&series=bf17364827e38702b42a58cf8eaa3f78&lastobs=&from=&to=&filetype=csv&label=include&layout=seriescolumn&type=package",
+  "final_url": "https://www.federalreserve.gov/datadownload/Output.aspx?rel=H15&series=bf17364827e38702b42a58cf8eaa3f78&lastobs=&from=&to=&filetype=csv&label=include&layout=seriescolumn&type=package",
+  "retrieved_utc": "2026-10-24T02:07:40.795884+00:00",
+  "sha256": "75dcc355bf51e2c45bd04d9b4cfc7fbc1edaa81abef1c0318de8a18ac44b9906",
+  "bytes": 1008811,
+  "dataset_sha256": "8055251ab08a5224c6f6f807be79d5af2a8feac630fece10e3d886268abf814a",
+  "license": "Public domain under the Board website reuse policy unless otherwise indicated; these selected U.S. government yield series carry no identified third-party restriction.",
+  "policy_url": "https://www.federalreserve.gov/disclaimer.htm",
+  "release_url": "https://www.federalreserve.gov/releases/h15/",
+  "attribution": "Source: Board of Governors of the Federal Reserve System (US), H.15 Selected Interest Rates; U.S. Treasury constant-maturity yields.",
+  "columns": {
+    "y3m": "RIFLGFCM03_N.B",
+    "y1": "RIFLGFCY01_N.B",
+    "y2": "RIFLGFCY02_N.B",
+    "y5": "RIFLGFCY05_N.B",
+    "y10": "RIFLGFCY10_N.B"
+  },
+  "unit": "Percent per annum, not decimal returns or bond prices",
+  "rows": 9005,
+  "first_date": "1990-01-02",
+  "last_date": "2025-12-31",
+  "normalization": "Only date and five selected government nominal yields; unchanged numeric values. Retain dates with an observed 10-year yield, exclude missing-10y/non-observation dates. No forward/backward filling. Other missing tenors remain missing for train-fitted feature imputation.",
+  "excluded_missing_10y_dates": 388,
+  "partial_tenor_dates": 0,
+  "vintage_limitation": "Current published historical vintage retrieved in October 2026; not an archived historical release panel. Source can revise past values. Exact historical release timestamps are not reconstructed.",
+  "timing_rule": "H.15 currently posts at 16:15 ET with prior business-day rates; a full intervening observation session is reserved before the t+2 09:00 modeled decision. This is a conservative assumption rather than historical release proof."
+}

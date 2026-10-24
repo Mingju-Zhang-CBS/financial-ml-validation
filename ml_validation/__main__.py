@@ -75,7 +75,13 @@ def main():
     p=argparse.ArgumentParser(description="Keyed financial ML validation with an offline synthetic demo")
     p.add_argument("--x",help="Official feature CSV obtained independently from Challenge Data")
     p.add_argument("--y",help="Matching target CSV")
+    p.add_argument("--real",action="store_true",help="Run the offline, public-domain Treasury yield-direction study")
     p.add_argument("--output",default="local-runs/demo")
-    a=p.parse_args();run(a.output,a.x,a.y)
+    a=p.parse_args()
+    if a.real:
+        if a.x or a.y:p.error("--real uses the packaged Treasury snapshot; challenge inputs use the separate legacy adapter")
+        from .treasury_report import run_treasury
+        run_treasury(a.output)
+    else:run(a.output,a.x,a.y)
 
 if __name__=="__main__":main()

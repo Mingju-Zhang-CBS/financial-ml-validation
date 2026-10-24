@@ -12,5 +12,9 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install -r requirements.lock.txt
       - run: python -m pip install --no-deps -e .
+      - run: python -m pip check
       - run: python -m pytest
-      - run: python -m ml_validation --output local-runs/ci
+      - run: python -m ml_validation --real --output local-runs/ci-real
+      - run: python -m ml_validation --output local-runs/ci-synthetic
+      - run: python examples/explain_treasury_clock.py
+      - run: python examples/explain_validation.py

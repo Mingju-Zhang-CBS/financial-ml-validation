@@ -1,0 +1,22 @@
+{
+  "training_rows": 7232,
+  "confirmation_rows": 1479,
+  "last_training_label_available": "2020-01-01T04:59:59+00:00",
+  "first_confirmation_decision": "2020-01-02T14:00:00+00:00",
+  "first_confirmation_date": "2020-01-02",
+  "last_confirmation_date": "2025-12-01",
+  "last_confirmation_label_available": "2026-01-01T04:59:59+00:00",
+  "fit_seconds": {
+    "logistic/curve": 0.016255099995760247,
+    "lightgbm/dynamics": 0.07045060000382364,
+    "catboost/dynamics": 0.20709350000834092
+  },
+  "raw_observations": 9005,
+  "complete_timed_samples": 8732,
+  "development_known_label_rows": 7232,
+  "late_development_labels_excluded": 21,
+  "confirmation_positive_fraction": 0.5409060175794456,
+  "confirmation_ties": 26,
+  "current_vintage_limitation": "Current published historical vintage retrieved in October 2026; not an archived historical release panel. Source can revise past values. Exact historical release timestamps are not reconstructed.",
+  "prediction_unit": "One decision date, with overlapping twenty-session labels; row count is not independent trials."
+}

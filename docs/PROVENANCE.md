@@ -1,21 +1,20 @@
-# Provenance and contribution boundaries
+# Sources and personal contribution
 
-This is a new, independently written portfolio implementation prepared for Mingju Zhang. Development, test design and documentation were AI-assisted. The account owner should review, understand and be able to defend the implementation before presenting it in interviews or using the supplied resume drafts.
+This is an independent new implementation of a Treasury-yield classification experiment. The original synthetic/challenge adapter remains separately labeled. No employer, course framework, recruiting task or downloaded challenge data is republished. Development and documentation were AI-assisted.
 
-## Included work
+## Primary sources
 
-The package source, tests, synthetic generators, reporting workflow and documentation were authored for this portfolio. Public mathematical methods, the public task definition and library interfaces inform the implementation. Original local course submissions, employer projects, recruitment problems, teacher frameworks and collaborators' code were not imported as source or copied into this distribution.
+- [Federal Reserve Board H.15](https://www.federalreserve.gov/releases/h15/): nominal Treasury constant-maturity yields and current release schedule. The selected five series are government reference yields, not the commercial-paper or other third-party series appearing elsewhere in H.15.
+- [Official data download page](https://www.federalreserve.gov/datadownload/Choose.aspx?rel=H15): Treasury Constant Maturities CSV package. Exact URL, retrieval time, original response hash, identifiers, normalization and dataset hash are in [source.json](../ml_validation/datasets/source.json).
+- [Board reuse policy](https://www.federalreserve.gov/disclaimer.htm): public-domain information may be copied/distributed unless an exception is identified, with attribution. [DATA_LICENSE.md](../DATA_LICENSE.md) limits this assessment to the selected source material; no seals, site assets or copyrighted third-party database is distributed.
+- [Treasury curve methodology](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics/treasury-yield-curve-methodology): indicative curve construction and the December 2021 method change. Historical official observations are not rewritten as a constant-methodology series.
 
-References: [QRT task](https://challengedata.ens.fr/challenges/167), [Challenge Data terms](https://challengedata.ens.fr/terms_of_use), and the official estimator documentation linked in METHODS.
+## My implementation
 
-## Not claimed
+I designed and wrote the selected-series data contract, past-only curve/dynamics features, delayed prediction-origin and label-availability rules, expanding purged splits, classifier/baseline comparison, pre-confirmation freeze, dependent uncertainty, diagnostics, six original figures, tests and English explanation. NumPy, pandas, scikit-learn, LightGBM, CatBoost, Matplotlib, SciPy and psutil retain their own authorship and licenses.
 
-This repository does not claim ownership of its Python dependencies, the original research methods, a company's research system, a supplied benchmark notebook or a classroom framework. It does not claim production deployment, actual trading, client assets managed, public/private leaderboard performance or an accepted upstream contribution. Existing private research history is distinct from this newly executed demo. Synthetic and simulated outputs are labeled in the report and manifest.
+Methods such as logistic regression, gradient boosting, standard scaling and block resampling are established building blocks. No novel alpha, official challenge result or trading track record is claimed. The economic question differs from the anonymous asset-allocation challenge: observed-calendar Treasury yield direction can be audited directly, while anonymous dates remain a limitation of the separate legacy adapter.
 
-## Rights and data
+## Evidence boundary
 
-The MIT license applies to newly authored repository code. Dependency rights remain with their owners. Data licenses are separate; obtaining data from a public page does not automatically establish unrestricted redistribution rights. External data, downloaded artifacts, model binaries and user-data runs are kept outside the initial public release. Where a separate rights question remains, the relevant original material stays in the private inventory and is not published here.
-
-## Attribution and future changes
-
-If a future change incorporates an upstream snippet, dataset or collaborator's implementation, record the exact source, applicable license/permission, scope and personal contribution before adding it. Maintain the distinction between implementing a public method, extending someone else's framework and originating the method itself.
+The snapshot is a current historical vintage retrieved in October 2026. Exact past release clocks, revisions and a prospective evaluation are unavailable. The label predicts a reference-yield change, not a bond total return. Fitted probability quality, classification accuracy and conditional model rankings are kept separate from portfolio performance, transaction costs and execution. Negative, inconclusive and block-sensitive findings are retained without changing the selected classifier after confirmation.

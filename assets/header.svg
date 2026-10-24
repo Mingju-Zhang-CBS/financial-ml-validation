@@ -1,10 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="248" viewBox="0 0 1200 248" role="img" aria-labelledby="title desc">
-<title id="title">Financial ML Validation</title><desc id="desc">When does a validation score support a research conclusion?. 3 CLASSIFIERS   /   9 CONFIGURATIONS   /   GROUPED UNCERTAINTY</desc>
-<rect width="1200" height="248" rx="18" fill="#101f32"/>
-<rect x="32" y="31" width="42" height="4" rx="2" fill="#55c6b0"/>
-<text x="89" y="39" fill="#aac3d5" font-family="Arial, Helvetica, sans-serif" font-size="14" letter-spacing="2">QUANTITATIVE FINANCE  /  STUDY 01</text>
-<text x="42" y="104" fill="#f5f8fb" font-family="Arial, Helvetica, sans-serif" font-size="43" font-weight="700">Financial ML Validation</text>
-<text x="44" y="146" fill="#c0d0df" font-family="Arial, Helvetica, sans-serif" font-size="20">When does a validation score support a research conclusion?</text>
-<line x1="44" y1="176" x2="1156" y2="176" stroke="#31445a"/>
-<text x="44" y="211" fill="#76d5c2" font-family="Arial, Helvetica, sans-serif" font-size="15" letter-spacing=".5">3 CLASSIFIERS   /   9 CONFIGURATIONS   /   GROUPED UNCERTAINTY</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 330" role="img" aria-labelledby="title desc"><title id="title">Financial ML Validation</title><desc id="desc">Real Treasury data, explicit label clocks and probability validation. Original editorial navy, paper, teal and brass design; geometric ornaments are not performance curves.</desc><rect width="1200" height="330" rx="14" fill="#101928"/><path d="M45 40H1155M45 286H1155" stroke="#5c6d7c"/><text x="50" y="85" font-family="Arial,sans-serif" font-size="20" letter-spacing="3" fill="#7cd4ca">DATA / RESEARCH STUDIO</text><text x="47" y="162" font-family="Georgia,serif" font-size="65" fill="#faf5e7">Financial ML Validation</text><text x="50" y="216" font-family="Arial,sans-serif" font-size="27" fill="#dbe2e8">Probability forecasts that earn their confidence.</text><g fill="none" stroke-width="2"><path d="M1040 235L1068 207L1096 235L1068 263Z" stroke="#36b3a8"/><circle cx="1068" cy="235" r="12" stroke="#c7a26c"/></g></svg>

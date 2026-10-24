@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-10-23T21:25:06.384319+00:00",
+  "generated_utc": "2026-10-24T02:14:55.978397+00:00",
   "data_kind": "synthetic",
   "input_sha256": "406ec1823367643e2b00081ece8109a92d1bb6884ca9a849eb84f633aa412ca2",
   "configuration": {
@@ -23,10 +23,13 @@
   },
   "source_sha256": {
     "__init__.py": "41362a5ea4931c546433d4c48290c5707bf02dbbea1c3aafa9f43d1225e47003",
-    "__main__.py": "7d563131720619c5290ea35e85f72484038192834dcd26551550f0d75a096316",
+    "__main__.py": "31677a38514a78bd3e3a2a33339f30a9e0ab90821b39e0ec32cb1baafbc12bbc",
     "data.py": "2ef8ab6cf6dcdd8cf1317a6619eee1f95e258a1a44f80daba480ee02f1430b74",
     "research.py": "8d6575c7cdc7fc626001365bfae8d66b6d8de7e8c7e093b4277a5add5813221e",
-    "runtime.py": "f13a499971d7a1d51ea7409b0e02d50129167868fa4adfa39e236dae0b6a8db7"
+    "runtime.py": "f13a499971d7a1d51ea7409b0e02d50129167868fa4adfa39e236dae0b6a8db7",
+    "treasury_data.py": "a23da0894015fd6bdcf02b494026a40ed59867236e0808c98d88600ddbb3ad70",
+    "treasury_report.py": "777f0f27b0e02de54a2f41cdcc47efbc6269ebe61aaf6c7fd70bbe708f2fc094",
+    "treasury_research.py": "0000a2fb36119d611e7848de529ed2e2d21beeaaf82b1d4cf86761564f4ac4f4"
   },
   "environment": {
     "python": "3.12.6",

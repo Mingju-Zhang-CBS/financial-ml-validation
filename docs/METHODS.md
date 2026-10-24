@@ -1,3 +1,73 @@
+# Treasury probability forecasting: methods and time contract
+
+## Data and units
+
+The package contains `date,y3m,y1,y2,y5,y10`, measured in percent per annum. A change from 4.00 to 4.20 is 0.20 percentage points, or 20 basis points; it is not a 20% bond return. Date order and uniqueness are checked. Ten-year observations must be finite. Infinite values, unexpected columns and implausible units fail closed. Other missing tenors remain missing for training-fitted imputation; the current retained snapshot has none. No forward/backward filling or invented holiday return is used.
+
+An observation session is a retained official date with a 10-year yield, not necessarily every exchange weekday. The source has 9,005 dates over 1990–2025. Eligible feature observations begin in 1991. Constant-maturity yields are indicative curve measurements; no single bond with that constant remaining maturity is assumed to be held.
+
+## Feature and label separation
+
+Nine curve features: the five levels, `y10−y2`, `y10−y3m`, `y5−y2` and `2*y5−y2−y10`. Sixteen dynamic features: 1-, 5- and 20-session changes for each tenor, plus the sample standard deviation of the latest twenty one-session 10-year changes. Combined contains all 25. Every calculation uses observations through t only, without centered windows, future shifts or full-sample normalization. Keys and all label/timing fields are rejected by the feature whitelist.
+
+For observation index i, publication lag L=1, decision delay D=2 and target horizon H=20:
+
+```text
+feature observation:       i
+assumed availability:     date[i+L], 23:59:59 New York
+decision:                 date[i+D], 09:00 New York
+target start measurement: date[i+D], later that day
+target end measurement:   date[i+D+H]
+label availability:       date[i+D+H+L], 23:59:59 New York
+target:                   1 if y10[i+D+H] > y10[i+D], else 0
+```
+
+Both endpoints are future label fields, excluded from features. A zero change maps to 0 and ties are reported, not dropped. The label does not begin at the feature date; doing so would mix pre-decision movement into the forecast. Rows without a complete target and its publication allowance are censored. There are 8,732 complete timed samples; confirmation ends on 1 December 2025 because later twenty-session outcomes would be unfinished within the snapshot's available clocks.
+
+Exported timestamp columns are timezone-aware UTC; date-only labels and the modeled 09:00 decision refer to New York dates. For example, 31 December at 23:59:59 New York appears as 1 January UTC. That representation is not a new measurement or a future-data import.
+
+## Expanding validation and the selection boundary
+
+Three validation windows: 2008–2011, 2012–2015, 2016–2019. Each training set starts with eligible historical rows and is restricted to labels fully available strictly before the window's first decision. All development-selection labels must also be available before 1 January 2020 00:00 New York. This removes 21 late-2019 boundary rows whose outcomes reach confirmation. A sample's earlier decision date alone does not establish that its target is known.
+
+Past feature windows may overlap across the boundary because past information can legitimately be known at both decisions; that does not justify overlapping unavailable training outcomes. Label-availability purging is performed from timestamps rather than an approximate twenty-row gap. Development outcomes can overlap across neighboring validation folds, so pooled scores and folds are not treated as independent replications.
+
+Confirmation decisions cover 2020–2025, with 1,479 fully labeled rows. A single final model is fitted on 7,232 eligible known-label rows before the first confirmation decision; its feature construction continues to update from available past observations, but its fitted parameters do not update on confirmation labels. Historical market familiarity, current-vintage corrections and missing archival release clocks prevent a prospective independent OOS claim.
+
+## Fixed model comparison
+
+Three estimators × three variants produce nine classifier configurations. Logistic regression uses C=1, maximum 600 iterations. LightGBM uses 80 trees, 15 leaves, maximum depth 4 and learning rate 0.05. CatBoost uses 80 iterations, depth 4 and learning rate 0.05. Seeds are fixed at 42; boosted models use two threads. No early stopping or confirmation evaluation set is passed to fitting.
+
+The shared pipeline fits median imputation and standard scaling inside each training fold. The comparison uses the same valid rows and labels for every configuration. No production probability recalibration is claimed. Predictions are bounded to [1e−6,1−1e−6] for numerical stability and threshold 0.50 is fixed.
+
+Two baselines fit only eligible training labels: `(positive_count+1)/(n+2)` overall; and the same Laplace-smoothed probability conditional on the sign of the past twenty-session 10-year change. The conditional model's state is known from features. It does not copy or observe the future sign.
+
+Selection minimizes pooled development log loss, breaking ties by configuration name. It freezes one variant per family, the best classifier across nine candidates, and the lower-loss baseline. The artifact's `global_champion` field is explicitly classifier-only; `overall_development_leader` includes baselines. In this run the baseline leads development, so the best classifier has not earned promotion over it. All three family representatives are evaluated in confirmation as predeclared comparisons. A different confirmation winner does not replace the selected classifier.
+
+## Metrics and dependence
+
+Accuracy, balanced accuracy, log loss, Brier score and ROC AUC are reported. Undefined single-class AUC is null. Primary gain is the mean paired per-row loss difference `baseline loss − selected-classifier loss`; positive favors the classifier. It is not a probability percentage-point difference or a financial return.
+
+Non-circular overlapping moving blocks of 63 and 126 sessions, 2,000 draws, seed 20261024, yield percentile 95% intervals. The twenty-session labels overlap; purging addresses training information leakage while blocks address local dependence in evaluation. Neither makes daily rows independent nor corrects the full historical search. Family intervals are descriptive comparisons, without a new multiple-testing-based model selection. Block choice, stationarity and changing regimes constrain interpretation.
+
+Fixed five-bin reliability, annual scores, as-of inverted/non-inverted curve slices and every-twentieth-anchor scores are diagnostics. They do not select thresholds or regimes. Sparse anchors reduce overlapping windows but do not prove independence.
+
+## Availability stress
+
+Delay4 uses an older observation for each fixed decision date, while the decision-day target start and twenty-session endpoint stay aligned. The code verifies identical decision-date outcomes across protocols. The base selected model/feature variant stays fixed, then refits only on eligible pre-confirmation labels under the stress clock. The two baselines remain train-fitted. No stress winner or replacement configuration is selected.
+
+## Data and model limits
+
+The Board's reuse policy is documented in [DATA_LICENSE.md](../DATA_LICENSE.md); Treasury's 2021 measurement-method change is retained. Current-vintage data can contain unknown revisions, and the historical 16:15 release schedule is not reconstructed for every date. A conservative full-session allowance is an assumption rather than proof of archived point-in-time availability. No duration, convexity, coupon, carry, financing, transaction-cost or executable-quote model converts these classifications into trading returns.
+
+## Legacy synthetic / anonymous-challenge contract
+
+The following is the preserved prior interface. It is a separate demonstration and does not describe the Treasury schema or its known calendar. Opaque challenge dates do not become a true forward history by sorting their labels.
+
+
+<details>
+<summary>Legacy input and validation contract</summary>
+
 # Method and input contract
 
 ## Files and alignment
@@ -31,3 +101,5 @@ The paired bootstrap resamples complete confirmation dates with replacement and 
 Outputs include aggregate metrics, per-development-fold scores, the nine-candidate ranking, group diagnostics, a frozen-choice record, two plots and a report. No original rows, individual official predictions, trained pickles or challenge data are part of the initial public release. Source hashes and an input fingerprint are in the manifest. Fit times exclude report plotting; process RSS is sampled every 10ms and is not a guaranteed native-memory peak.
 
 References: [QRT official task](https://challengedata.ens.fr/challenges/167), [scikit-learn grouped validation](https://scikit-learn.org/stable/modules/cross_validation.html), [LightGBM classifier](https://lightgbm.readthedocs.io/en/stable/pythonapi/lightgbm.LGBMClassifier.html), [CatBoost classifier](https://catboost.ai/docs/en/concepts/python-reference_catboostclassifier).
+
+</details>

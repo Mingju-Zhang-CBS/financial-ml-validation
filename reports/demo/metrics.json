@@ -53,7 +53,7 @@
       "log_loss": 0.6914560156259798
     }
   ],
-  "final_fit_seconds": 0.03274520000559278,
+  "final_fit_seconds": 0.031587100005708635,
   "development_baseline": {
     "accuracy": 0.5095356550580431,
     "balanced_accuracy": 0.5,
@@ -61,8 +61,8 @@
   },
   "data_kind": "synthetic",
   "measurement": {
-    "seconds": 4.768702899978962,
-    "sampled_peak_rss_mb": 215.8359375,
-    "rss_increase_mb": 31.7265625
+    "seconds": 4.621286200010218,
+    "sampled_peak_rss_mb": 214.78125,
+    "rss_increase_mb": 27.359375
   }
 }
