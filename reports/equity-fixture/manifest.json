@@ -1,0 +1,29 @@
+{
+  "input_sha256": "e7de4c4e47174a7708d6fc006636d52eba2ddd9e403114034aad874636bc98f0",
+  "protocol_sha256": "0695855ff8ee982d0057bba173b390b26b8796fa95acda15285a43d882019165",
+  "source_sha256": {
+    "core.py": "5ebec2bbdd60bbb0187918c0938dfc4cb9ef81ecda9e691d6a0e722cf4177284",
+    "data.py": "9d923dbf9202a2eea12c6e54e0af046641389cbf2616d8455ca20c4fbf3a9d1c",
+    "events.py": "196f3a604c5655a47ee2a65eb6a674d583aad87afbc0b17d0ff4fbe0e2b985d8",
+    "study.py": "01a4fe6d66d078aabbf82e14979b7fc958e4ee2fcdfa2078134055bec60a4814",
+    "__init__.py": "b677a7498995b086895b412984c39f04aceff86591f588fea1796400eda90e0f",
+    "__main__.py": "2eed6e2f9cf7e3a076355eee0c3e7450bf0953c2dd311e98ed729c23f8d088ee"
+  },
+  "outputs_sha256": {
+    "annual.csv": "9cebac2b8a9ee1d6e027e1d2a3bf92be12c9459a7c28a3ad841403f43526092a",
+    "annual_validation.png": "3c334d25be78548ded99c5e2bb6360fda8ed194eb52ea4c60135baa69359b12b",
+    "basket_costs.png": "f97545f147a6f413695b15c124350231d8010db37e31110a2df2fafd85fb0879",
+    "basket_diagnostics.csv": "a883f01d3e84bc2269b3b7a33fa853aec8880121c2f8746c666ff0935acbe029",
+    "coefficients.csv": "5356c60696f070e20af7cfc67f54cbfe17e10ea8a73301f768d29d177c1dcd56",
+    "daily_metrics.csv": "68dae81ce33873949c0f326f175b377a57b3f5a580e786bd63241b7ab495c4f5",
+    "feature_family.csv": "d881d0bb4441d8d59c2408249f6dce2e5f827661e2aafe5a5a2001dc290c8fec",
+    "inference.csv": "bdd7937712ec03b7930a9f0dbc04196360bab1ec3db4ee8ef32c96a7f58f9ad7",
+    "inner_selection.csv": "9ee2ec0b2612bdb18ebbb4b61982c08a469987a552243f5ff4fab3551722e503",
+    "metrics.json": "5833fe59e86cda8c8917b0aa66ae605a1cee791e7de990262198269b12c58ea8",
+    "price_shock_event_windows.csv": "c3f44f3e2a7f90b81eaa88526ee7ca42aab60f1df07a3677b941cdf189cfbace",
+    "private_predictions.parquet": "b2375dad1b1894d5748e2b4411299aff82d865fff54096681fee0d0f20989fdb",
+    "protocol.json": "0695855ff8ee982d0057bba173b390b26b8796fa95acda15285a43d882019165",
+    "REPORT.md": "b860ca7c4a847a3d39fe52916058c2932a383fc24a66fab62bc8a64d8fe4d339",
+    "standardized_target_sensitivity.csv": "0ec15b8d257766573a0556d595b2ff5db40079d1afe752996e699cc4f01c84b5"
+  }
+}

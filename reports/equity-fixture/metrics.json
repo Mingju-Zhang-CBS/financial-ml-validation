@@ -1,0 +1,26 @@
+{
+  "data_kind": "synthetic-fixture",
+  "outer_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "predicted_rows": 62568,
+  "evaluable_rows": 62568,
+  "dates": 2607,
+  "securities": 24,
+  "elapsed_seconds": 117.76900970004499,
+  "limitations": [
+    "current vintage, no historical factor release/revision archive",
+    "costed basket diagnostic, no borrow/funding or NAV claim",
+    "historical evaluation; original periods may have been studied",
+    "vendor-derived aggregates require rights review before publication"
+  ]
+}

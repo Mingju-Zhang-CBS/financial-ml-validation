@@ -21,12 +21,13 @@ dependencies = [
 
 [project.optional-dependencies]
 test = ["pytest>=8,<10"]
+equity = ["pyarrow==26.0.0"]
 
 [tool.setuptools.packages.find]
 include = ["ml_validation*"]
 
 [tool.setuptools.package-data]
-ml_validation = ["datasets/*.csv", "datasets/*.json"]
+ml_validation = ["datasets/*.csv", "datasets/*.json", "equity/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

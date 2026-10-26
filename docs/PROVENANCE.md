@@ -9,9 +9,9 @@ This is an independent new implementation of a Treasury-yield classification exp
 - [Board reuse policy](https://www.federalreserve.gov/disclaimer.htm): public-domain information may be copied/distributed unless an exception is identified, with attribution. [DATA_LICENSE.md](../DATA_LICENSE.md) limits this assessment to the selected source material; no seals, site assets or copyrighted third-party database is distributed.
 - [Treasury curve methodology](https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics/treasury-yield-curve-methodology): indicative curve construction and the December 2021 method change. Historical official observations are not rewritten as a constant-methodology series.
 
-## My implementation
+## Implementation and contribution
 
-I designed and wrote the selected-series data contract, past-only curve/dynamics features, delayed prediction-origin and label-availability rules, expanding purged splits, classifier/baseline comparison, pre-confirmation freeze, dependent uncertainty, diagnostics, six original figures, tests and English explanation. NumPy, pandas, scikit-learn, LightGBM, CatBoost, Matplotlib, SciPy and psutil retain their own authorship and licenses.
+The implementation covers the selected-series data contract, past-only curve/dynamics features, delayed prediction origins, label-availability rules, expanding purged splits, model comparison, frozen confirmation and dependent uncertainty. Mingju Zhang selected the research direction; code, experiments, tests and writing were AI-assisted. Personal course contributions and independent human review remain separately evidenced. NumPy, pandas, scikit-learn, LightGBM, CatBoost, Matplotlib, SciPy and psutil retain their own authorship and licenses. The new equity extension is an independent implementation; source classroom notebooks, collaborator utilities and vendor records are excluded.
 
 Methods such as logistic regression, gradient boosting, standard scaling and block resampling are established building blocks. No novel alpha, official challenge result or trading track record is claimed. The economic question differs from the anonymous asset-allocation challenge: observed-calendar Treasury yield direction can be audited directly, while anonymous dates remain a limitation of the separate legacy adapter.
 

@@ -2,6 +2,14 @@
 
 # Financial ML Validation
 
+## Equity research extension
+
+**Do transparent price and liquidity signals survive risk adjustment and honest model selection?** The independent extension connects historical month-end selection, eight explicit features, origin-beta residuals, WLS/weighted Ridge/weighted Lasso and annual outer evaluation. Input preprocessing and risk caps are fitted within training; labels have their own availability clock.
+
+[Equity methods and clocks](docs/EQUITY_RESEARCH.md) · [Executed synthetic fixture](reports/equity-fixture/REPORT.md) · [Temporal tests](tests/test_equity.py)
+
+The synthetic fixture demonstrates behavior only. Licensed CRSP inputs, detailed outputs and derived real-data results remain private pending applicable publication rights. The public real-data Treasury investigation below remains a separate study, with its unfavorable confirmation result retained.
+
 **Real public Treasury yields · time-aware financial ML · probability quality**
 
 Can yield-curve features improve forecasts of the next twenty observed-session direction in the 10-year Treasury reference yield? I compare logistic regression, LightGBM and CatBoost on **9,005 official H.15 observations**, with a delayed forecast origin, label-availability purging and a development freeze. The result connects rates research with practical data-science judgment: a more complex classifier must earn its place against a simple probability baseline.
@@ -39,7 +47,7 @@ The baseline predicts the training period's class tendency, rather than learning
 |Research judgment|Development baseline wins, frozen classifier underperforms, and favorable but block-sensitive alternatives remain qualified|
 |Engineering|33 automated tests, offline packaged data, keyed predictions, complete timing audits and source-bound artifacts|
 
-I independently implemented the yield schema, trailing feature construction, timed label contract, purged experiment, reporting and validation. Public methods and Python libraries retain attribution. Development and documentation were AI-assisted; original course, employer and challenge files are excluded.
+The study implements the yield schema, trailing feature construction, timed label contract, purged experiment, reporting and validation. Public methods and Python libraries retain attribution. Implementation, experiment design and documentation were AI-assisted; original course, employer and challenge files are excluded. Individual review is separate from automated execution.
 
 ## Read the clock before fitting a model
 
@@ -86,6 +94,6 @@ The [legacy synthetic study](reports/demo/REPORT.md) remains a separate alignmen
 
 ## Continue reading
 
-[Methods](docs/METHODS.md) · [Numerical walkthrough](docs/WALKTHROUGH.md) · [Validation record](docs/VALIDATION.md) · [Sources and contribution](docs/PROVENANCE.md) · [Interview guide](docs/INTERVIEW.md) · [QR / DS resume evidence](docs/RESUME.md)
+[Methods](docs/METHODS.md) · [Numerical walkthrough](docs/WALKTHROUGH.md) · [Validation record](docs/VALIDATION.md) · [Sources and contribution](docs/PROVENANCE.md) · [Technical discussion](docs/DISCUSSION.md)
 
 For financial NLP, compare [Financial Text Validation](https://github.com/Mingju-Zhang-CBS/financial-text-validation). For allocation and funding, see [Systematic Strategy Lab](https://github.com/Mingju-Zhang-CBS/systematic-strategy-lab). Together they connect financial data, model validation and investment decisions without equating prediction accuracy with profitability.
