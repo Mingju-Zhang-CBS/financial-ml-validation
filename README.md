@@ -45,7 +45,7 @@ The baseline predicts the training period's class tendency, rather than learning
 |Model comparison|Nine fixed model/feature configurations, two train-fitted baselines and identical expanding folds|
 |Probability evaluation|Log loss, Brier score, accuracy, balanced accuracy, AUC and fixed-bin reliability|
 |Research judgment|Development baseline wins, frozen classifier underperforms, and favorable but block-sensitive alternatives remain qualified|
-|Engineering|33 automated tests, offline packaged data, keyed predictions, complete timing audits and source-bound artifacts|
+|Engineering|41 automated tests, including eight equity checks; offline packaged data, keyed predictions, timing audits and source-bound artifacts|
 
 The study implements the yield schema, trailing feature construction, timed label contract, purged experiment, reporting and validation. Public methods and Python libraries retain attribution. Implementation, experiment design and documentation were AI-assisted; original course, employer and challenge files are excluded. Individual review is separate from automated execution.
 

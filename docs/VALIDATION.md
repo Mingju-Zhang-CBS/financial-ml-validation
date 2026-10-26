@@ -1,6 +1,8 @@
 # Validation and reproducibility
 
-The suite contains **33 automated cases**: 22 real-study cases and 11 preserved synthetic/anonymous-challenge cases. It checks behavior rather than only reproducing a displayed metric.
+The suite contains **41 automated cases**: 22 Treasury-study cases, 11 preserved synthetic/anonymous-challenge cases and eight equity-extension cases. It checks behavior rather than only reproducing a displayed metric.
+
+The equity extension checks calendar-keyed targets, future feature/risk perturbations, training-only weight caps and model selection, previous-month class selection, ambiguous identity quarantine, missing basket outcomes and preservation of the multiple-test family. Its complete synthetic fixture runs from an independently installed wheel. Restricted real-data verification separately recalculates every model/year error from that period's stored predictions and outcomes; licensed outputs remain private.
 
 ## Real-data checks
 
@@ -21,7 +23,7 @@ The legacy tests separately cover keyed challenge joins, unknown categories, ano
 
 ## Executed reproduction
 
-The release uses a fresh Python 3.12 environment and the locked dependency closure. Source tests, dependency checks, the real study, the legacy synthetic run and both worked examples are run. A standalone wheel is installed and exercised outside the source directory; numerical outputs and CSVs are compared with the source run. The [current workflow](https://github.com/Mingju-Zhang-CBS/financial-ml-validation/actions/workflows/checks.yml) performs tests, dependency checks, both complete studies and both examples on Ubuntu/Python 3.12.
+The release uses a fresh Python 3.12 environment and the locked dependency closure. A standalone wheel is installed and tested outside the source directory; dependency checks, the Treasury study, legacy synthetic run and equity fixture complete there. The [current workflow](https://github.com/Mingju-Zhang-CBS/financial-ml-validation/actions/workflows/checks.yml) additionally runs the worked examples on Ubuntu/Python 3.12.
 
 The run manifest binds the packaged snapshot, protocol, source record, Python source files, environment and every generated artifact. Runtime and sampled process RSS are machine-specific; plotting and final artifact writing are outside the timed experiment block. Dependency deprecation warnings are recorded; they are not silently treated as failed tests.
 
