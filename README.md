@@ -6,9 +6,9 @@ Can yield-curve features improve a 20-session forecast of the direction of the 1
 
 [Full results](reports/real/REPORT.md) · [Methods](docs/METHODS.md) · [Run the study](#run-the-study)
 
-![Accuracy, balanced accuracy, log loss and Brier score for frozen Treasury classifiers and baselines](reports/real/confirmation_comparison.png)
+![Log loss and balanced accuracy for frozen Treasury classifiers and baselines](reports/real/confirmation_comparison.png)
 
-*Historical H.15 confirmation, 2020–2025. Lower log loss and Brier score indicate better probability forecasts. The frozen selection and results for all five comparators are in the [report](reports/real/REPORT.md).*
+*Historical H.15 confirmation, 2020–2025. Lower log loss and higher balanced accuracy are favorable. The frozen selection and results for all five comparators are in the [report](reports/real/REPORT.md).*
 
 ## How the comparison was designed
 
